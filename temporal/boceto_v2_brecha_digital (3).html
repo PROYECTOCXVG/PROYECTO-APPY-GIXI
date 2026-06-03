@@ -1,0 +1,999 @@
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Syne:wght@400;500;600;700&display=swap');
+
+  :root {
+    --color-text-primary: #0F1117;
+    --color-text-secondary: #4B5264;
+    --color-text-tertiary: #8A909E;
+    --color-background-primary: #FFFFFF;
+    --color-background-secondary: #F5F6F8;
+    --color-border-tertiary: #E0E3EA;
+    --color-border-secondary: #CBD0DA;
+    --border-radius-md: 6px;
+    --border-radius-lg: 10px;
+    --accent-blue: #1A5FD4;
+    --accent-green: #0F6E56;
+    --accent-orange: #BA7517;
+    --accent-purple: #5048C8;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    font-family: 'Syne', sans-serif;
+    background: #ECEFF4;
+    margin: 0;
+    padding: 20px;
+  }
+
+  .nav-item{display:flex;align-items:center;gap:8px;padding:7px 10px;border-radius:var(--border-radius-md);cursor:pointer;font-size:11.5px;color:var(--color-text-secondary);border:0.5px solid transparent;}
+  .nav-item.active{background:var(--color-background-secondary);border-color:var(--color-border-tertiary);color:var(--color-text-primary);font-weight:500;}
+  .nav-item:hover:not(.active){background:var(--color-background-secondary);}
+  .metric{background:var(--color-background-secondary);border-radius:var(--border-radius-md);padding:10px 12px;}
+  .slabel{font-size:10px;text-transform:uppercase;letter-spacing:0.06em;color:var(--color-text-tertiary);margin:0 0 6px;font-weight:500;font-family:'IBM Plex Mono',monospace;}
+  .ph{background:var(--color-background-secondary);border:0.5px dashed var(--color-border-secondary);border-radius:var(--border-radius-md);display:flex;align-items:center;justify-content:center;color:var(--color-text-tertiary);font-size:11px;gap:6px;}
+  .badge{font-size:10px;padding:2px 7px;border-radius:var(--border-radius-md);font-weight:500;font-family:'IBM Plex Mono',monospace;}
+  .tag{font-size:11px;padding:3px 8px;border-radius:var(--border-radius-md);background:var(--color-background-secondary);border:0.5px solid var(--color-border-tertiary);color:var(--color-text-secondary);}
+  .tag.on{background:#E6F1FB;border-color:#85B7EB;color:#0C447C;}
+  .nsec{font-size:9.5px;color:var(--color-text-tertiary);text-transform:uppercase;letter-spacing:0.05em;padding:10px 10px 4px;font-weight:600;font-family:'IBM Plex Mono',monospace;}
+  .divider{border:none;border-top:0.5px solid var(--color-border-tertiary);margin:16px 0;}
+  .sec-title{font-size:13px;font-weight:600;margin:0 0 2px;color:var(--color-text-primary);}
+  .sec-sub{font-size:11px;color:var(--color-text-secondary);margin:0 0 10px;line-height:1.5;}
+
+  /* New section styles */
+  .info-card{padding:10px 12px;background:var(--color-background-secondary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-md);}
+  .info-card p{font-size:11px;line-height:1.65;color:var(--color-text-secondary);margin:0;}
+  .step-num{width:22px;height:22px;border-radius:50%;background:var(--color-text-primary);color:#fff;font-size:10px;font-weight:600;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-family:'IBM Plex Mono',monospace;}
+  .member-avatar{width:54px;height:54px;border-radius:50%;background:var(--color-background-secondary);border:0.5px solid var(--color-border-tertiary);display:flex;align-items:center;justify-content:center;font-size:20px;}
+  .pill{font-size:10px;padding:2px 8px;border-radius:20px;font-weight:500;font-family:'IBM Plex Mono',monospace;}
+  .finding-card{padding:10px 12px;border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-md);border-left-width:3px;}
+  .recom-card{padding:10px 12px;background:var(--color-background-secondary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-md);display:flex;gap:10px;align-items:flex-start;}
+</style>
+
+<div style="display:flex;gap:0;min-height:1400px;border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);overflow:hidden;background:var(--color-background-primary);">
+
+  <!-- ══ SIDEBAR ══ -->
+  <div style="width:176px;flex-shrink:0;border-right:0.5px solid var(--color-border-tertiary);padding:14px 10px;display:flex;flex-direction:column;gap:3px;background:var(--color-background-primary);">
+    <div style="margin-bottom:10px;padding-bottom:10px;border-bottom:0.5px solid var(--color-border-tertiary);">
+      <p style="font-size:12px;font-weight:600;color:var(--color-text-primary);margin:0 0 2px;font-family:'Syne',sans-serif;">Brecha Digital</p>
+      <p style="font-size:10px;color:var(--color-text-tertiary);margin:0;font-family:'IBM Plex Mono',monospace;">Colombia · 2019–2023</p>
+    </div>
+
+    <p class="nsec">Contexto</p>
+    <div class="nav-item active"><i class="ti ti-home" aria-hidden="true"></i>Inicio</div>
+    <div class="nav-item" style="padding-left:18px;font-size:11px;"><i class="ti ti-target" aria-hidden="true"></i>Enfoque</div>
+    <div class="nav-item" style="padding-left:18px;font-size:11px;"><i class="ti ti-flag" aria-hidden="true"></i>Objetivo</div>
+    <div class="nav-item" style="padding-left:18px;font-size:11px;"><i class="ti ti-clipboard-data" aria-hidden="true"></i>Metodología</div>
+
+    <p class="nsec">Análisis</p>
+    <div class="nav-item"><i class="ti ti-layout-dashboard" aria-hidden="true"></i>Dashboard</div>
+    <div class="nav-item"><i class="ti ti-map" aria-hidden="true"></i>Mapa coroplético</div>
+    <div class="nav-item"><i class="ti ti-trending-up" aria-hidden="true"></i>Evolución</div>
+    <div class="nav-item"><i class="ti ti-building" aria-hidden="true"></i>Urbano / rural</div>
+    <div class="nav-item"><i class="ti ti-arrows-diff" aria-hidden="true"></i>Comparador</div>
+    <div class="nav-item"><i class="ti ti-device-mobile" aria-hidden="true"></i>Dispositivos</div>
+    <div class="nav-item"><i class="ti ti-wifi" aria-hidden="true"></i>Internet</div>
+    <div class="nav-item"><i class="ti ti-table" aria-hidden="true"></i>Datos y descarga</div>
+
+    <p class="nsec">Resultados</p>
+    <div class="nav-item"><i class="ti ti-sparkles" aria-hidden="true"></i>Hallazgos</div>
+    <div class="nav-item"><i class="ti ti-bulb" aria-hidden="true"></i>Conclusiones</div>
+    <div class="nav-item"><i class="ti ti-file-text" aria-hidden="true"></i>Informe final</div>
+    <div class="nav-item"><i class="ti ti-users" aria-hidden="true"></i>Integrantes</div>
+
+    <hr style="border:none;border-top:0.5px solid var(--color-border-tertiary);margin:10px 0;">
+    <p class="slabel">Filtros globales</p>
+    <div style="display:flex;flex-direction:column;gap:6px;">
+      <div style="font-size:11px;color:var(--color-text-secondary);">Año</div>
+      <div style="display:flex;flex-wrap:wrap;gap:4px;">
+        <span class="tag on">2019</span>
+        <span class="tag on">2022</span>
+        <span class="tag on">2023</span>
+      </div>
+      <div style="font-size:11px;color:var(--color-text-secondary);margin-top:4px;">Zona</div>
+      <div style="display:flex;flex-wrap:wrap;gap:4px;">
+        <span class="tag on">Cabecera</span>
+        <span class="tag on">Rural</span>
+        <span class="tag">Total</span>
+      </div>
+      <div style="font-size:11px;color:var(--color-text-secondary);margin-top:4px;">Departamento</div>
+      <div style="background:var(--color-background-secondary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-md);padding:5px 8px;display:flex;align-items:center;gap:6px;">
+        <i class="ti ti-search" style="font-size:12px;color:var(--color-text-tertiary);" aria-hidden="true"></i>
+        <span style="font-size:11px;color:var(--color-text-tertiary);">Todos (34)</span>
+      </div>
+    </div>
+
+    <div style="margin-top:auto;padding-top:10px;border-top:0.5px solid var(--color-border-tertiary);">
+      <p style="font-size:10px;color:var(--color-text-tertiary);margin:0;font-family:'IBM Plex Mono',monospace;">Fuente: DANE</p>
+      <p style="font-size:10px;color:var(--color-text-tertiary);margin:2px 0 0;font-family:'IBM Plex Mono',monospace;">Datos abiertos Colombia</p>
+    </div>
+  </div>
+
+  <!-- ══ MAIN CONTENT ══ -->
+  <div style="flex:1;overflow:auto;display:flex;flex-direction:column;">
+
+    <!-- ── INICIO HEADER ── -->
+    <div style="position:relative;border-bottom:0.5px solid #1E3A5F;padding:32px 28px 28px;overflow:hidden;background:#060C1A;min-height:320px;">
+
+      <!-- SVG FONDO: Colombia grande + cuadrícula + panel de datos visible -->
+      <svg aria-hidden="true" style="position:absolute;inset:0;width:100%;height:100%;" viewBox="0 0 960 320" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+        <defs>
+          <radialGradient id="rg_bog" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#3B82F6" stop-opacity="0.9"/>
+            <stop offset="60%" stop-color="#3B82F6" stop-opacity="0.3"/>
+            <stop offset="100%" stop-color="#3B82F6" stop-opacity="0"/>
+          </radialGradient>
+          <radialGradient id="rg_med" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#60A5FA" stop-opacity="0.7"/>
+            <stop offset="100%" stop-color="#60A5FA" stop-opacity="0"/>
+          </radialGradient>
+          <radialGradient id="rg_cali" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#34D399" stop-opacity="0.65"/>
+            <stop offset="100%" stop-color="#34D399" stop-opacity="0"/>
+          </radialGradient>
+          <radialGradient id="rg_bar" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#60A5FA" stop-opacity="0.6"/>
+            <stop offset="100%" stop-color="#60A5FA" stop-opacity="0"/>
+          </radialGradient>
+          <radialGradient id="rg_vau" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#F87171" stop-opacity="0.45"/>
+            <stop offset="100%" stop-color="#F87171" stop-opacity="0"/>
+          </radialGradient>
+          <linearGradient id="ovl_left" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%"   stop-color="#060C1A" stop-opacity="0.82"/>
+            <stop offset="55%"  stop-color="#060C1A" stop-opacity="0.38"/>
+            <stop offset="100%" stop-color="#060C1A" stop-opacity="0.08"/>
+          </linearGradient>
+        </defs>
+
+        <!-- ░░ FONDO BASE ░░ -->
+        <rect width="960" height="320" fill="#060C1A"/>
+
+        <!-- ░░ CUADRÍCULA CARTOGRÁFICA ░░ -->
+        <line x1="96"  y1="0" x2="96"  y2="320" stroke="#122038" stroke-width="0.6"/>
+        <line x1="192" y1="0" x2="192" y2="320" stroke="#122038" stroke-width="0.6"/>
+        <line x1="288" y1="0" x2="288" y2="320" stroke="#122038" stroke-width="0.6"/>
+        <line x1="384" y1="0" x2="384" y2="320" stroke="#122038" stroke-width="0.6"/>
+        <line x1="480" y1="0" x2="480" y2="320" stroke="#122038" stroke-width="0.6"/>
+        <line x1="576" y1="0" x2="576" y2="320" stroke="#122038" stroke-width="0.6"/>
+        <line x1="672" y1="0" x2="672" y2="320" stroke="#122038" stroke-width="0.6"/>
+        <line x1="768" y1="0" x2="768" y2="320" stroke="#122038" stroke-width="0.6"/>
+        <line x1="864" y1="0" x2="864" y2="320" stroke="#122038" stroke-width="0.6"/>
+        <line x1="0" y1="64"  x2="960" y2="64"  stroke="#122038" stroke-width="0.6"/>
+        <line x1="0" y1="128" x2="960" y2="128" stroke="#122038" stroke-width="0.6"/>
+        <line x1="0" y1="192" x2="960" y2="192" stroke="#122038" stroke-width="0.6"/>
+        <line x1="0" y1="256" x2="960" y2="256" stroke="#122038" stroke-width="0.6"/>
+
+        <!-- Etiquetas coordenadas -->
+        <text x="10" y="18"  font-size="8" fill="#1E3F6A" font-family="monospace">12°N</text>
+        <text x="10" y="82"  font-size="8" fill="#1E3F6A" font-family="monospace">8°N</text>
+        <text x="10" y="146" font-size="8" fill="#1E3F6A" font-family="monospace">4°N</text>
+        <text x="10" y="210" font-size="8" fill="#1E3F6A" font-family="monospace">0°</text>
+        <text x="480" y="14" font-size="8" fill="#1E3F6A" font-family="monospace" text-anchor="middle">76°W</text>
+        <text x="576" y="14" font-size="8" fill="#1E3F6A" font-family="monospace" text-anchor="middle">74°W</text>
+        <text x="672" y="14" font-size="8" fill="#1E3F6A" font-family="monospace" text-anchor="middle">72°W</text>
+
+        <!-- ░░ MAPA COLOMBIA — silueta real y reconocible ░░
+             Proyección simplificada. Colombia: ~12°N a 4°S lat, ~67°W a 79°W lon
+             Escala: 1° lat ≈ 22px, 1° lon ≈ 18px. Origen: (480,22) = 76°W, 12°N -->
+
+        <!-- Coordenadas clave (lon→x, lat→y):
+             Punta Gallinas  72.6°W, 12.4°N → (617, 13)
+             Cabo de la Vela 72.0°W, 12.2°N → (628, 17)
+             Barranquilla    74.8°W, 11.0°N → (569, 43)
+             Santa Marta     74.1°W, 11.2°N → (582, 39)
+             Golfo Urabá     77.0°W, 8.1°N  → (521, 105)
+             Buenaventura    77.1°W, 3.9°N  → (520, 197)
+             Tumaco          78.8°W, 1.8°N  → (489, 244)
+             Ecuador border  75.2°W, 0°     → (562, 286)
+             Leticia         70.0°W, 4.2°S  → (659, 349) [fuera viewbox = 320]
+             Venezuela border 72.0°W, 7°N   → (628, 131)
+             Cucutá          72.5°W, 7.9°N  → (618, 109)
+             Bogotá          74.1°W, 4.7°N  → (582, 185)
+        -->
+        <path d="
+          M 617 13
+          L 628 17 L 638 24 L 645 32
+          L 638 38 L 628 40 L 620 44 L 610 50
+          L 618 58 L 622 70 L 619 82
+          L 625 94 L 628 109 L 624 122
+          L 618 131 L 612 143 L 608 158
+          L 614 172 L 618 188 L 614 202
+          L 608 215 L 600 226 L 595 238
+          L 590 252 L 586 268 L 582 283
+          L 575 295 L 565 305 L 553 310
+          L 540 312 L 526 310 L 514 305
+          L 504 297 L 496 286 L 489 272
+          L 484 258 L 480 244 L 476 230
+          L 472 215 L 470 200 L 468 185
+          L 463 170 L 458 155 L 455 140
+          L 452 126 L 450 112 L 448 98
+          L 445 84 L 443 70 L 442 56
+          L 443 44 L 446 34 L 451 26
+          L 459 20 L 468 16 L 478 13
+          L 490 11 L 502 10 L 514 11
+          L 528 14 L 542 15 L 556 14
+          L 570 12 L 582 10 L 596 10
+          L 608 11 Z
+        " fill="#0A1E3D" stroke="#1E4D8C" stroke-width="1.5" opacity="0.95"/>
+
+        <!-- ░░ PUNTOS DE CALOR — ciudades / departamentos ░░ -->
+
+        <!-- Bogotá: lon 74.1W, lat 4.7N → x=582, y=185 ... ajustado al path -->
+        <circle cx="534" cy="182" r="38" fill="url(#rg_bog)" opacity="1"/>
+        <circle cx="534" cy="182" r="9"  fill="#3B82F6" opacity="0.95"/>
+        <circle cx="534" cy="182" r="4"  fill="#BFDBFE"/>
+        <text x="534" y="204" font-size="7" fill="#93C5FD" text-anchor="middle" font-family="monospace" opacity="0.9">Bogotá</text>
+
+        <!-- Medellín: lon 75.6W, lat 6.3N → x≈509, y≈144 -->
+        <circle cx="506" cy="144" r="28" fill="url(#rg_med)" opacity="0.9"/>
+        <circle cx="506" cy="144" r="7"  fill="#60A5FA" opacity="0.9"/>
+        <circle cx="506" cy="144" r="3"  fill="#DBEAFE"/>
+        <text x="506" y="163" font-size="7" fill="#93C5FD" text-anchor="middle" font-family="monospace" opacity="0.8">Medellín</text>
+
+        <!-- Cali: lon 76.5W, lat 3.4N → x≈493, y≈206 -->
+        <circle cx="492" cy="207" r="24" fill="url(#rg_cali)" opacity="0.85"/>
+        <circle cx="492" cy="207" r="6"  fill="#34D399" opacity="0.9"/>
+        <circle cx="492" cy="207" r="2.5" fill="#A7F3D0"/>
+        <text x="492" y="225" font-size="7" fill="#6EE7B7" text-anchor="middle" font-family="monospace" opacity="0.8">Cali</text>
+
+        <!-- Barranquilla: lon 74.8W, lat 11.0N → x≈521, y≈42 -->
+        <circle cx="521" cy="44" r="22" fill="url(#rg_bar)" opacity="0.8"/>
+        <circle cx="521" cy="44" r="5.5" fill="#60A5FA" opacity="0.85"/>
+        <circle cx="521" cy="44" r="2.5" fill="#BFDBFE"/>
+        <text x="521" y="62" font-size="7" fill="#93C5FD" text-anchor="middle" font-family="monospace" opacity="0.75">Barranquilla</text>
+
+        <!-- Vaupés/Amazonas: rezago — lon 71°W, lat 1°N → x≈650, y≈242 -->
+        <circle cx="598" cy="260" r="26" fill="url(#rg_vau)" opacity="0.7"/>
+        <circle cx="598" cy="260" r="5"  fill="#F87171" opacity="0.7"/>
+        <circle cx="598" cy="260" r="2"  fill="#FECACA"/>
+        <text x="598" y="278" font-size="7" fill="#FCA5A5" text-anchor="middle" font-family="monospace" opacity="0.65">Vaupés</text>
+
+        <!-- Eje X entre conectados ↔ rezago -->
+        <path d="M 534 182 Q 520 162 506 144" fill="none" stroke="#3B82F6" stroke-width="1.2" opacity="0.45"/>
+        <path d="M 506 144 Q 499 176 492 207" fill="none" stroke="#3B82F6" stroke-width="1"   opacity="0.35"/>
+        <path d="M 521 44  Q 527 93  534 182" fill="none" stroke="#60A5FA" stroke-width="0.8" opacity="0.3"/>
+        <path d="M 534 182 Q 566 221 598 260" fill="none" stroke="#F87171" stroke-width="0.8" stroke-dasharray="4,4" opacity="0.35"/>
+
+        <!-- Ondas de señal Bogotá -->
+        <circle cx="534" cy="182" r="52" fill="none" stroke="#3B82F6" stroke-width="0.6" opacity="0.15"/>
+        <circle cx="534" cy="182" r="74" fill="none" stroke="#3B82F6" stroke-width="0.4" opacity="0.08"/>
+
+        <!-- ░░ PANEL DERECHO — datos visibles ░░ -->
+        <!-- Separador vertical suave -->
+        <line x1="668" y1="16" x2="668" y2="304" stroke="#1E3F6A" stroke-width="0.8" opacity="0.8"/>
+
+        <!-- Título panel -->
+        <text x="680" y="30" font-size="8.5" fill="#3B6EA8" font-family="monospace" font-weight="bold">% HOGARES CON INTERNET · 2023</text>
+        <line x1="676" y1="34" x2="950" y2="34" stroke="#1E3F6A" stroke-width="0.5"/>
+
+        <!-- Barras departamentales — más anchas y visibles -->
+        <!-- Bogotá D.C. -->
+        <rect x="680" y="46" width="180" height="12" fill="#1E3F6A" rx="2"/>
+        <rect x="680" y="46" width="166" height="12" fill="#3B82F6" rx="2" opacity="0.85"/>
+        <text x="853" y="56" font-size="8" fill="#93C5FD" font-family="monospace">92%</text>
+        <text x="680" y="43" font-size="7.5" fill="#3B82F6" font-family="monospace" opacity="0.7">Bogotá D.C.</text>
+
+        <!-- Valle del Cauca -->
+        <rect x="680" y="72" width="180" height="12" fill="#1E3F6A" rx="2"/>
+        <rect x="680" y="72" width="146" height="12" fill="#3B82F6" rx="2" opacity="0.75"/>
+        <text x="832" y="82" font-size="8" fill="#93C5FD" font-family="monospace">81%</text>
+        <text x="680" y="69" font-size="7.5" fill="#3B82F6" font-family="monospace" opacity="0.65">Valle del Cauca</text>
+
+        <!-- Antioquia -->
+        <rect x="680" y="98" width="180" height="12" fill="#1E3F6A" rx="2"/>
+        <rect x="680" y="98" width="137" height="12" fill="#60A5FA" rx="2" opacity="0.7"/>
+        <text x="823" y="108" font-size="8" fill="#93C5FD" font-family="monospace">76%</text>
+        <text x="680" y="95" font-size="7.5" fill="#60A5FA" font-family="monospace" opacity="0.65">Antioquia</text>
+
+        <!-- Nariño -->
+        <rect x="680" y="124" width="180" height="12" fill="#1E3F6A" rx="2"/>
+        <rect x="680" y="124" width="79" height="12" fill="#F59E0B" rx="2" opacity="0.65"/>
+        <text x="765" y="134" font-size="8" fill="#FCD34D" font-family="monospace">44%</text>
+        <text x="680" y="121" font-size="7.5" fill="#F59E0B" font-family="monospace" opacity="0.6">Nariño</text>
+
+        <!-- Chocó -->
+        <rect x="680" y="150" width="180" height="12" fill="#1E3F6A" rx="2"/>
+        <rect x="680" y="150" width="48" height="12" fill="#F87171" rx="2" opacity="0.7"/>
+        <text x="734" y="160" font-size="8" fill="#FCA5A5" font-family="monospace">27%</text>
+        <text x="680" y="147" font-size="7.5" fill="#F87171" font-family="monospace" opacity="0.6">Chocó</text>
+
+        <!-- Vaupés -->
+        <rect x="680" y="176" width="180" height="12" fill="#1E3F6A" rx="2"/>
+        <rect x="680" y="176" width="21" height="12" fill="#F87171" rx="2" opacity="0.8"/>
+        <text x="707" y="186" font-size="8" fill="#FCA5A5" font-family="monospace">12%</text>
+        <text x="680" y="173" font-size="7.5" fill="#F87171" font-family="monospace" opacity="0.6">Vaupés</text>
+
+        <!-- Eje base barras -->
+        <line x1="680" y1="194" x2="950" y2="194" stroke="#1E3F6A" stroke-width="0.5"/>
+
+        <!-- Sparkline evolución -->
+        <text x="680" y="214" font-size="8.5" fill="#3B6EA8" font-family="monospace" font-weight="bold">EVOLUCIÓN NACIONAL 2019–2023</text>
+        <line x1="676" y1="218" x2="950" y2="218" stroke="#1E3F6A" stroke-width="0.5"/>
+
+        <!-- Referencias horizontales -->
+        <line x1="680" y1="238" x2="940" y2="238" stroke="#122038" stroke-width="0.4" stroke-dasharray="3,4"/>
+        <line x1="680" y1="258" x2="940" y2="258" stroke="#122038" stroke-width="0.4" stroke-dasharray="3,4"/>
+        <line x1="680" y1="278" x2="940" y2="278" stroke="#122038" stroke-width="0.4" stroke-dasharray="3,4"/>
+        <text x="676" y="241" font-size="7" fill="#1E3F6A" text-anchor="end" font-family="monospace">60%</text>
+        <text x="676" y="261" font-size="7" fill="#1E3F6A" text-anchor="end" font-family="monospace">50%</text>
+        <text x="676" y="281" font-size="7" fill="#1E3F6A" text-anchor="end" font-family="monospace">40%</text>
+
+        <!-- Área bajo la curva -->
+        <polygon points="698,278 762,262 826,245 890,232 890,290 698,290" fill="#3B82F6" opacity="0.12"/>
+
+        <!-- Línea sparkline -->
+        <polyline points="698,278 762,262 826,245 890,232"
+          fill="none" stroke="#3B82F6" stroke-width="2.2"
+          stroke-linecap="round" stroke-linejoin="round" opacity="0.85"/>
+
+        <!-- Puntos años -->
+        <circle cx="698" cy="278" r="4"  fill="#1E3A5F" stroke="#3B82F6" stroke-width="1.5" opacity="0.9"/>
+        <circle cx="762" cy="262" r="4"  fill="#1E3A5F" stroke="#3B82F6" stroke-width="1.5" opacity="0.9"/>
+        <circle cx="826" cy="245" r="4"  fill="#1E3A5F" stroke="#3B82F6" stroke-width="1.5" opacity="0.9"/>
+        <circle cx="890" cy="232" r="5.5" fill="#3B82F6" stroke="#93C5FD" stroke-width="1.5" opacity="1"/>
+
+        <!-- Etiquetas años -->
+        <text x="698" y="304" font-size="8" fill="#3B6EA8" text-anchor="middle" font-family="monospace">2019</text>
+        <text x="762" y="304" font-size="8" fill="#3B6EA8" text-anchor="middle" font-family="monospace">2020</text>
+        <text x="826" y="304" font-size="8" fill="#3B6EA8" text-anchor="middle" font-family="monospace">2022</text>
+        <text x="890" y="304" font-size="8" fill="#93C5FD" text-anchor="middle" font-family="monospace">2023</text>
+
+        <!-- Valores en puntos -->
+        <text x="698" y="274" font-size="7.5" fill="#60A5FA" text-anchor="middle" font-family="monospace">43%</text>
+        <text x="762" y="258" font-size="7.5" fill="#60A5FA" text-anchor="middle" font-family="monospace">52%</text>
+        <text x="826" y="241" font-size="7.5" fill="#60A5FA" text-anchor="middle" font-family="monospace">61%</text>
+        <text x="890" y="228" font-size="7.5" fill="#BFDBFE" text-anchor="middle" font-family="monospace">67%</text>
+
+        <!-- ░░ OVERLAY IZQUIERDO — solo cubre la zona de texto del header ░░ -->
+        <rect x="0" y="0" width="668" height="320" fill="url(#ovl_left)"/>
+      </svg>
+
+      <!-- Contenido del header (z-index sobre SVG) -->
+      <div style="position:relative;z-index:1;">
+      <p style="font-size:10px;text-transform:uppercase;letter-spacing:0.1em;color:#6B8AC9;margin:0 0 6px;font-weight:500;font-family:'IBM Plex Mono',monospace;">Proyecto de análisis de datos · 2025</p>
+      <p style="font-size:24px;font-weight:700;margin:0 0 4px;color:#FFFFFF;font-family:'Syne',sans-serif;letter-spacing:-0.5px;">Brecha Digital en Colombia</p>
+      <p style="font-size:13px;color:#8A9DC0;margin:0 0 14px;">Análisis territorial del acceso tecnológico en hogares · 2019–2023</p>
+
+      <div style="display:flex;gap:8px;margin-bottom:16px;">
+        <div style="text-align:center;background:rgba(255,255,255,0.07);border:0.5px solid rgba(255,255,255,0.12);border-radius:var(--border-radius-md);padding:8px 16px;">
+          <p style="font-size:18px;font-weight:600;margin:0;color:#FFFFFF;">6</p>
+          <p style="font-size:10px;color:#8A9DC0;margin:2px 0 0;">datasets</p>
+        </div>
+        <div style="text-align:center;background:rgba(255,255,255,0.07);border:0.5px solid rgba(255,255,255,0.12);border-radius:var(--border-radius-md);padding:8px 16px;">
+          <p style="font-size:18px;font-weight:600;margin:0;color:#FFFFFF;">34</p>
+          <p style="font-size:10px;color:#8A9DC0;margin:2px 0 0;">departamentos</p>
+        </div>
+        <div style="text-align:center;background:rgba(255,255,255,0.07);border:0.5px solid rgba(255,255,255,0.12);border-radius:var(--border-radius-md);padding:8px 16px;">
+          <p style="font-size:18px;font-weight:600;margin:0;color:#FFFFFF;">3</p>
+          <p style="font-size:10px;color:#8A9DC0;margin:2px 0 0;">años</p>
+        </div>
+        <div style="text-align:center;background:rgba(255,255,255,0.07);border:0.5px solid rgba(255,255,255,0.12);border-radius:var(--border-radius-md);padding:8px 16px;">
+          <p style="font-size:18px;font-weight:600;margin:0;color:#FFFFFF;">17</p>
+          <p style="font-size:10px;color:#8A9DC0;margin:2px 0 0;">secciones</p>
+        </div>
+      </div>
+
+      <!-- Preguntas de investigación -->
+      <p class="slabel" style="color:#5B6F94;">Preguntas de investigación</p>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;">
+        <div style="display:flex;align-items:flex-start;gap:8px;padding:8px 10px;background:rgba(255,255,255,0.05);border:0.5px solid rgba(255,255,255,0.1);border-radius:var(--border-radius-md);">
+          <span class="badge" style="background:#1A3A72;color:#85B7EB;flex-shrink:0;">P1</span>
+          <p style="font-size:11px;margin:0;color:#CBD5E8;">¿Cómo evolucionó el acceso a internet en hogares colombianos entre 2019 y 2023?</p>
+        </div>
+        <div style="display:flex;align-items:flex-start;gap:8px;padding:8px 10px;background:rgba(255,255,255,0.05);border:0.5px solid rgba(255,255,255,0.1);border-radius:var(--border-radius-md);">
+          <span class="badge" style="background:#0D3329;color:#5DC7A8;flex-shrink:0;">P2</span>
+          <p style="font-size:11px;margin:0;color:#CBD5E8;">¿Qué tan grande es la brecha digital entre zonas urbanas y rurales por departamento?</p>
+        </div>
+        <div style="display:flex;align-items:flex-start;gap:8px;padding:8px 10px;background:rgba(255,255,255,0.05);border:0.5px solid rgba(255,255,255,0.1);border-radius:var(--border-radius-md);">
+          <span class="badge" style="background:#3D2800;color:#F0AD3D;flex-shrink:0;">P3</span>
+          <p style="font-size:11px;margin:0;color:#CBD5E8;">¿Qué departamentos lideran y cuáles presentan mayor rezago digital?</p>
+        </div>
+        <div style="display:flex;align-items:flex-start;gap:8px;padding:8px 10px;background:rgba(255,255,255,0.05);border:0.5px solid rgba(255,255,255,0.1);border-radius:var(--border-radius-md);">
+          <span class="badge" style="background:#2A2460;color:#A49FF5;flex-shrink:0;">P4</span>
+          <p style="font-size:11px;margin:0;color:#CBD5E8;">¿El celular compensa la falta de internet fijo en zonas remotas?</p>
+        </div>
+      </div>
+      </div><!-- /z-index wrapper -->
+    </div><!-- /header -->
+
+    <!-- ══ BODY ══ -->
+    <div style="padding:18px;display:flex;flex-direction:column;gap:20px;">
+
+      <!-- ───────────────────────────────────── -->
+      <!-- ── SECCIÓN: ENFOQUE ── -->
+      <!-- ───────────────────────────────────── -->
+      <div>
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;">
+          <div style="width:3px;height:16px;background:var(--accent-blue);border-radius:2px;"></div>
+          <p class="sec-title">Enfoque — Contexto más completo</p>
+        </div>
+        <p class="sec-sub">Marco conceptual que sitúa la problemática de la brecha digital en Colombia</p>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px;">
+          <div class="info-card" style="border-left:3px solid var(--accent-blue);">
+            <p class="slabel" style="margin-bottom:5px;">¿Qué es la brecha digital?</p>
+            <p>La brecha digital es la desigualdad en el acceso, uso y aprovechamiento de las tecnologías de la información y comunicación (TIC). Va más allá de la conectividad: incluye habilidades digitales, calidad del acceso y relevancia del contenido disponible.</p>
+          </div>
+          <div class="info-card" style="border-left:3px solid var(--accent-green);">
+            <p class="slabel" style="margin-bottom:5px;">Contexto colombiano</p>
+            <p>Colombia registra profundas desigualdades territoriales. La pandemia de 2020 aceleró la digitalización urbana pero profundizó la exclusión rural. Con 34 departamentos muy heterogéneos en infraestructura, ingresos y geografía, el país es un caso de estudio paradigmático.</p>
+          </div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;">
+          <div class="info-card">
+            <p class="slabel" style="margin-bottom:4px;">Dimensión de acceso</p>
+            <p>Disponibilidad de dispositivos y conexión en el hogar. Indicadores: % hogares con computador, celular, tablet e internet.</p>
+          </div>
+          <div class="info-card">
+            <p class="slabel" style="margin-bottom:4px;">Dimensión territorial</p>
+            <p>Variación entre departamentos y entre zonas de cabecera municipal vs. centros poblados y rural disperso.</p>
+          </div>
+          <div class="info-card">
+            <p class="slabel" style="margin-bottom:4px;">Dimensión temporal</p>
+            <p>Cambios entre 2019 (prepandemia), 2022 (pospandemia) y 2023 (consolidación), capturando el impacto del COVID-19.</p>
+          </div>
+        </div>
+      </div>
+
+      <hr class="divider">
+
+      <!-- ───────────────────────────────────── -->
+      <!-- ── SECCIÓN: OBJETIVO ── -->
+      <!-- ───────────────────────────────────── -->
+      <div>
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;">
+          <div style="width:3px;height:16px;background:var(--accent-green);border-radius:2px;"></div>
+          <p class="sec-title">Objetivo del proyecto</p>
+        </div>
+        <p class="sec-sub">Propósito general y objetivos específicos que orientan el análisis</p>
+
+        <div class="info-card" style="border-left:3px solid var(--accent-green);margin-bottom:8px;">
+          <p class="slabel" style="margin-bottom:5px;">Objetivo general</p>
+          <p style="font-size:12px;font-weight:500;color:var(--color-text-primary);">Caracterizar y visualizar la evolución de la brecha digital en Colombia entre 2019 y 2023, identificando patrones territoriales y socioeconómicos que permitan formular recomendaciones de política pública orientadas a la reducción de las desigualdades en el acceso tecnológico.</p>
+        </div>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+          <div style="display:flex;align-items:flex-start;gap:10px;padding:10px;background:var(--color-background-secondary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-md);">
+            <div class="step-num">O1</div>
+            <p style="font-size:11px;line-height:1.6;color:var(--color-text-secondary);margin:0;">Unificar y limpiar los 6 datasets del DANE para construir un panel longitudinal consistente de 34 departamentos × 3 años × 2 zonas.</p>
+          </div>
+          <div style="display:flex;align-items:flex-start;gap:10px;padding:10px;background:var(--color-background-secondary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-md);">
+            <div class="step-num">O2</div>
+            <p style="font-size:11px;line-height:1.6;color:var(--color-text-secondary);margin:0;">Medir la magnitud de la brecha urbano-rural y su evolución mediante indicadores cuantitativos comparables en el tiempo.</p>
+          </div>
+          <div style="display:flex;align-items:flex-start;gap:10px;padding:10px;background:var(--color-background-secondary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-md);">
+            <div class="step-num">O3</div>
+            <p style="font-size:11px;line-height:1.6;color:var(--color-text-secondary);margin:0;">Construir visualizaciones interactivas que comuniquen los hallazgos a audiencias técnicas y no técnicas de manera efectiva.</p>
+          </div>
+          <div style="display:flex;align-items:flex-start;gap:10px;padding:10px;background:var(--color-background-secondary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-md);">
+            <div class="step-num">O4</div>
+            <p style="font-size:11px;line-height:1.6;color:var(--color-text-secondary);margin:0;">Formular recomendaciones de política pública concretas y priorizadas con base en los patrones identificados en los datos.</p>
+          </div>
+        </div>
+      </div>
+
+      <hr class="divider">
+
+      <!-- ───────────────────────────────────── -->
+      <!-- ── SECCIÓN: METODOLOGÍA ── -->
+      <!-- ───────────────────────────────────── -->
+      <div>
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;">
+          <div style="width:3px;height:16px;background:var(--accent-orange);border-radius:2px;"></div>
+          <p class="sec-title">Metodología, herramientas y datos</p>
+        </div>
+        <p class="sec-sub">Pipeline de datos · stack tecnológico · fuentes y proceso de ETL</p>
+
+        <!-- Pipeline visual -->
+        <p class="slabel">Pipeline de análisis</p>
+        <div style="display:flex;align-items:center;gap:6px;margin-bottom:12px;flex-wrap:wrap;">
+          <div style="padding:8px 12px;background:#FFF8EC;border:0.5px solid #F0C97A;border-radius:var(--border-radius-md);text-align:center;">
+            <p style="font-size:10px;font-weight:600;margin:0 0 2px;color:#7A4A00;font-family:'IBM Plex Mono',monospace;">01 · INGESTA</p>
+            <p style="font-size:10px;color:#9A6A20;margin:0;">6 CSV del DANE</p>
+          </div>
+          <i class="ti ti-arrow-right" style="color:var(--color-text-tertiary);font-size:14px;"></i>
+          <div style="padding:8px 12px;background:#EBF4FF;border:0.5px solid #85B7EB;border-radius:var(--border-radius-md);text-align:center;">
+            <p style="font-size:10px;font-weight:600;margin:0 0 2px;color:#0C3A7A;font-family:'IBM Plex Mono',monospace;">02 · LIMPIEZA</p>
+            <p style="font-size:10px;color:#1A5FD4;margin:0;">Python · Pandas</p>
+          </div>
+          <i class="ti ti-arrow-right" style="color:var(--color-text-tertiary);font-size:14px;"></i>
+          <div style="padding:8px 12px;background:#EEFBF4;border:0.5px solid #6DCAAB;border-radius:var(--border-radius-md);text-align:center;">
+            <p style="font-size:10px;font-weight:600;margin:0 0 2px;color:#085041;font-family:'IBM Plex Mono',monospace;">03 · UNIFICACIÓN</p>
+            <p style="font-size:10px;color:#0F6E56;margin:0;">Panel único merged</p>
+          </div>
+          <i class="ti ti-arrow-right" style="color:var(--color-text-tertiary);font-size:14px;"></i>
+          <div style="padding:8px 12px;background:#F0EFFE;border:0.5px solid #9A94E8;border-radius:var(--border-radius-md);text-align:center;">
+            <p style="font-size:10px;font-weight:600;margin:0 0 2px;color:#2E2880;font-family:'IBM Plex Mono',monospace;">04 · ANÁLISIS</p>
+            <p style="font-size:10px;color:#5048C8;margin:0;">EDA · correlaciones</p>
+          </div>
+          <i class="ti ti-arrow-right" style="color:var(--color-text-tertiary);font-size:14px;"></i>
+          <div style="padding:8px 12px;background:#F5F6F8;border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-md);text-align:center;">
+            <p style="font-size:10px;font-weight:600;margin:0 0 2px;color:var(--color-text-secondary);font-family:'IBM Plex Mono',monospace;">05 · VISUALIZACIÓN</p>
+            <p style="font-size:10px;color:var(--color-text-tertiary);margin:0;">Plotly · D3 · Folium</p>
+          </div>
+        </div>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+          <div>
+            <p class="slabel">Fuentes de datos</p>
+            <div style="display:flex;flex-direction:column;gap:5px;">
+              <div class="info-card" style="display:flex;gap:8px;align-items:flex-start;">
+                <span class="pill" style="background:#E6F1FB;color:#0C447C;">DANE</span>
+                <p style="font-size:11px;margin:0;color:var(--color-text-secondary);">Encuesta de Calidad de Vida (ECV) 2019, 2022, 2023 — módulo TIC hogares</p>
+              </div>
+              <div class="info-card" style="display:flex;gap:8px;align-items:flex-start;">
+                <span class="pill" style="background:#E1F5EE;color:#085041;">DATCO</span>
+                <p style="font-size:11px;margin:0;color:var(--color-text-secondary);">Datos Abiertos Colombia — tablas departamentales por zona</p>
+              </div>
+              <div class="info-card" style="display:flex;gap:8px;align-items:flex-start;">
+                <span class="pill" style="background:#FAEEDA;color:#633806;">GEO</span>
+                <p style="font-size:11px;margin:0;color:var(--color-text-secondary);">GeoJSON Colombia departamentos para mapas coropléticos</p>
+              </div>
+            </div>
+          </div>
+          <div>
+            <p class="slabel">Stack tecnológico</p>
+            <div style="display:flex;flex-wrap:wrap;gap:5px;">
+              <span class="tag" style="display:flex;align-items:center;gap:4px;"><i class="ti ti-brand-python" aria-hidden="true"></i> Python 3.11</span>
+              <span class="tag">Pandas 2.x</span>
+              <span class="tag">NumPy</span>
+              <span class="tag">Plotly</span>
+              <span class="tag">Folium</span>
+              <span class="tag">D3.js</span>
+              <span class="tag">Jupyter</span>
+              <span class="tag">GeoPandas</span>
+              <span class="tag">Matplotlib</span>
+              <span class="tag">Seaborn</span>
+            </div>
+            <div style="margin-top:8px;">
+              <p class="slabel">Variables principales</p>
+              <div style="display:flex;flex-wrap:wrap;gap:4px;">
+                <span class="tag on">% internet hogar</span>
+                <span class="tag on">% celular</span>
+                <span class="tag on">% computador</span>
+                <span class="tag on">% televisor</span>
+                <span class="tag">Zona cab/rural</span>
+                <span class="tag">Depto · año</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <hr class="divider">
+
+      <!-- ───────────────────────────────────── -->
+      <!-- ── DASHBOARD ── -->
+      <!-- ───────────────────────────────────── -->
+      <div>
+        <p class="sec-title">Dashboard interactivo</p>
+        <p class="sec-sub">KPIs y gráficas principales · responde a los filtros globales</p>
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:10px;">
+          <div class="metric">
+            <p style="font-size:10px;color:var(--color-text-tertiary);margin:0 0 3px;">Hogares con internet 2023</p>
+            <p style="font-size:20px;font-weight:600;margin:0;color:var(--color-text-primary);">— %</p>
+            <p style="font-size:10px;color:#0F6E56;margin:4px 0 0;">↑ vs 2019</p>
+          </div>
+          <div class="metric">
+            <p style="font-size:10px;color:var(--color-text-tertiary);margin:0 0 3px;">Brecha urbano–rural</p>
+            <p style="font-size:20px;font-weight:600;margin:0;color:var(--color-text-primary);">— pp</p>
+            <p style="font-size:10px;color:var(--color-text-tertiary);margin:4px 0 0;">puntos porcentuales</p>
+          </div>
+          <div class="metric">
+            <p style="font-size:10px;color:var(--color-text-tertiary);margin:0 0 3px;">Mayor acceso 2023</p>
+            <p style="font-size:13px;font-weight:500;margin:0;color:var(--color-text-primary);">Bogotá D.C.</p>
+            <p style="font-size:10px;color:#0F6E56;margin:4px 0 0;">internet hogares</p>
+          </div>
+          <div class="metric">
+            <p style="font-size:10px;color:var(--color-text-tertiary);margin:0 0 3px;">Mayor rezago 2023</p>
+            <p style="font-size:13px;font-weight:500;margin:0;color:var(--color-text-primary);">Vaupés</p>
+            <p style="font-size:10px;color:#993C1D;margin:4px 0 0;">internet hogares</p>
+          </div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+          <div>
+            <p class="slabel">Evolución nacional · % hogares con internet</p>
+            <div class="ph" style="height:100px;"><i class="ti ti-chart-line" style="font-size:18px;" aria-hidden="true"></i> Línea 2019 → 2022 → 2023</div>
+          </div>
+          <div>
+            <p class="slabel">Brecha urbano / rural por año</p>
+            <div class="ph" style="height:100px;"><i class="ti ti-chart-bar" style="font-size:18px;" aria-hidden="true"></i> Barras agrupadas cabecera vs rural</div>
+          </div>
+        </div>
+      </div>
+
+      <hr class="divider">
+
+      <!-- ── MAPA COROPLÉTICO ── -->
+      <div>
+        <p class="sec-title">Mapa coroplético interactivo</p>
+        <p class="sec-sub">Distribución territorial del acceso digital · slider de año · tooltips por departamento</p>
+        <div style="display:grid;grid-template-columns:2fr 1fr;gap:10px;">
+          <div>
+            <div style="display:flex;gap:5px;margin-bottom:6px;align-items:center;">
+              <span style="font-size:11px;color:var(--color-text-tertiary);">Año:</span>
+              <span class="tag on">2019</span><span class="tag">2022</span><span class="tag">2023</span>
+              <span style="font-size:11px;color:var(--color-text-tertiary);margin-left:8px;">Variable:</span>
+              <span class="tag on">Internet</span><span class="tag">Celular</span>
+            </div>
+            <div class="ph" style="height:200px;"><i class="ti ti-map" style="font-size:22px;" aria-hidden="true"></i> Mapa Colombia · colores por % acceso · tooltip al hover</div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:8px;">
+            <div>
+              <p class="slabel">Top 5 · mayor acceso</p>
+              <div class="ph" style="height:88px;"><i class="ti ti-award" style="font-size:16px;" aria-hidden="true"></i> Ranking top 5</div>
+            </div>
+            <div>
+              <p class="slabel">Top 5 · mayor rezago</p>
+              <div class="ph" style="height:88px;"><i class="ti ti-alert-triangle" style="font-size:16px;" aria-hidden="true"></i> Ranking rezago</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <hr class="divider">
+
+      <!-- ── EVOLUCIÓN ── -->
+      <div>
+        <p class="sec-title">Evolución temporal 2019–2023</p>
+        <p class="sec-sub">Series de tiempo por departamento y zona · animación por año</p>
+        <div style="display:grid;grid-template-columns:2fr 1fr;gap:10px;">
+          <div>
+            <p class="slabel">Líneas de tiempo · todos los departamentos</p>
+            <div class="ph" style="height:140px;"><i class="ti ti-chart-line" style="font-size:18px;" aria-hidden="true"></i> Series multi-línea · selector de zona · eje X: año</div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:8px;">
+            <div>
+              <p class="slabel">Cambio 2019–2023 (pp)</p>
+              <div class="ph" style="height:62px;"><i class="ti ti-arrow-up-right" style="font-size:16px;" aria-hidden="true"></i> Barras de cambio ± pp</div>
+            </div>
+            <div>
+              <p class="slabel">Tasa de crecimiento</p>
+              <div class="ph" style="height:62px;"><i class="ti ti-percentage" style="font-size:16px;" aria-hidden="true"></i> Ranking de variación %</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <hr class="divider">
+
+      <!-- ── URBANO / RURAL ── -->
+      <div>
+        <p class="sec-title">Brecha urbano / rural</p>
+        <p class="sec-sub">Comparación por departamento entre zonas cabecera y rural disperso</p>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+          <div>
+            <p class="slabel">Barras apiladas cabecera vs rural</p>
+            <div class="ph" style="height:120px;"><i class="ti ti-chart-bar" style="font-size:18px;" aria-hidden="true"></i> Stacked bars por depto.</div>
+          </div>
+          <div>
+            <p class="slabel">Mapa de calor · brecha por año</p>
+            <div class="ph" style="height:120px;"><i class="ti ti-grid-dots" style="font-size:18px;" aria-hidden="true"></i> Heatmap depto × año (diferencia pp)</div>
+          </div>
+        </div>
+      </div>
+
+      <hr class="divider">
+
+      <!-- ── COMPARADOR ── -->
+      <div>
+        <p class="sec-title">Comparador de departamentos</p>
+        <p class="sec-sub">Selecciona 2 o 3 departamentos y compáralos en todas las variables</p>
+        <div style="display:flex;gap:6px;margin-bottom:8px;align-items:center;">
+          <span style="font-size:11px;color:var(--color-text-tertiary);">Seleccionar:</span>
+          <span class="tag on">Bogotá D.C.</span>
+          <span class="tag on">Vaupés</span>
+          <span class="tag" style="border-style:dashed;cursor:pointer;display:flex;align-items:center;gap:4px;"><i class="ti ti-plus" style="font-size:11px;" aria-hidden="true"></i> añadir</span>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+          <div>
+            <p class="slabel">Radar · todas las variables</p>
+            <div class="ph" style="height:120px;"><i class="ti ti-chart-radar" style="font-size:18px;" aria-hidden="true"></i> Gráfica radar superpuesta</div>
+          </div>
+          <div>
+            <p class="slabel">Evolución comparada 2019–2023</p>
+            <div class="ph" style="height:120px;"><i class="ti ti-chart-line" style="font-size:18px;" aria-hidden="true"></i> Líneas por departamento seleccionado</div>
+          </div>
+        </div>
+      </div>
+
+      <hr class="divider">
+
+      <!-- ── DISPOSITIVOS ── -->
+      <div>
+        <p class="sec-title">Análisis por dispositivo</p>
+        <p class="sec-sub">Composición de equipamiento tecnológico en los hogares colombianos</p>
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;">
+          <div><p class="slabel">% hogares con celular</p><div class="ph" style="height:90px;"><i class="ti ti-device-mobile" style="font-size:18px;" aria-hidden="true"></i> Mapa / barras celular</div></div>
+          <div><p class="slabel">% hogares con computador</p><div class="ph" style="height:90px;"><i class="ti ti-device-desktop" style="font-size:18px;" aria-hidden="true"></i> Mapa / barras PC</div></div>
+          <div><p class="slabel">% hogares con TV</p><div class="ph" style="height:90px;"><i class="ti ti-device-tv" style="font-size:18px;" aria-hidden="true"></i> Mapa / barras TV</div></div>
+        </div>
+      </div>
+
+      <hr class="divider">
+
+      <!-- ── INTERNET ── -->
+      <div>
+        <p class="sec-title">Acceso a internet — análisis profundo</p>
+        <p class="sec-sub">Tipos de conexión · velocidad · correlación con variables socioeconómicas</p>
+        <div style="display:grid;grid-template-columns:2fr 1fr;gap:10px;">
+          <div><p class="slabel">Internet fijo vs móvil por zona y año</p><div class="ph" style="height:120px;"><i class="ti ti-wifi" style="font-size:18px;" aria-hidden="true"></i> Barras agrupadas por tipo de conexión</div></div>
+          <div><p class="slabel">Correlación con pobreza</p><div class="ph" style="height:120px;"><i class="ti ti-chart-dots" style="font-size:18px;" aria-hidden="true"></i> Scatter internet vs IPM</div></div>
+        </div>
+      </div>
+
+      <hr class="divider">
+
+      <!-- ── RANKING + SCATTER ── -->
+      <div style="display:grid;grid-template-columns:2fr 1fr;gap:10px;">
+        <div>
+          <p class="sec-title">Ranking departamentos</p>
+          <p class="sec-sub">Ordenable · selector de variable y año</p>
+          <div style="display:flex;gap:5px;margin-bottom:6px;">
+            <span class="tag on">Internet</span><span class="tag">Celular</span><span class="tag">Computador</span><span class="tag">TV</span>
+          </div>
+          <div class="ph" style="height:120px;"><i class="ti ti-chart-bar" style="font-size:18px;" aria-hidden="true"></i> Barras horizontales · clic para ordenar ↑↓</div>
+        </div>
+        <div>
+          <p class="sec-title">Dispersión regional</p>
+          <p class="sec-sub">Urbano vs rural · tooltip por depto.</p>
+          <div class="ph" style="height:148px;"><i class="ti ti-chart-dots" style="font-size:18px;" aria-hidden="true"></i> Scatter con tooltips</div>
+        </div>
+      </div>
+
+      <hr class="divider">
+
+      <!-- ── TABLA Y DESCARGA ── -->
+      <div>
+        <p class="sec-title">Datos y descarga</p>
+        <p class="sec-sub">Tabla filtrable con todos los datos limpios · exportar a CSV</p>
+        <div style="display:flex;gap:6px;align-items:center;margin-bottom:8px;">
+          <div style="background:var(--color-background-secondary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-md);padding:5px 10px;display:flex;align-items:center;gap:6px;flex:1;">
+            <i class="ti ti-search" style="font-size:12px;color:var(--color-text-tertiary);" aria-hidden="true"></i>
+            <span style="font-size:11px;color:var(--color-text-tertiary);">Buscar departamento...</span>
+          </div>
+          <span class="tag" style="cursor:pointer;display:flex;align-items:center;gap:4px;"><i class="ti ti-download" style="font-size:12px;" aria-hidden="true"></i> Descargar CSV</span>
+        </div>
+        <div style="border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-md);overflow:hidden;">
+          <div style="display:grid;grid-template-columns:1.5fr 1fr 0.8fr 1fr 1fr 1fr;background:var(--color-background-secondary);border-bottom:0.5px solid var(--color-border-tertiary);padding:7px 10px;gap:8px;">
+            <span style="font-size:10px;font-weight:500;color:var(--color-text-secondary);">Departamento</span>
+            <span style="font-size:10px;font-weight:500;color:var(--color-text-secondary);">Zona</span>
+            <span style="font-size:10px;font-weight:500;color:var(--color-text-secondary);">Año</span>
+            <span style="font-size:10px;font-weight:500;color:var(--color-text-secondary);">Internet %</span>
+            <span style="font-size:10px;font-weight:500;color:var(--color-text-secondary);">Celular %</span>
+            <span style="font-size:10px;font-weight:500;color:var(--color-text-secondary);">Computador %</span>
+          </div>
+          <div style="padding:8px 10px;display:flex;align-items:center;justify-content:center;color:var(--color-text-tertiary);font-size:11px;gap:6px;">
+            <i class="ti ti-table" style="font-size:14px;" aria-hidden="true"></i> Tabla paginada · responde a filtros globales
+          </div>
+        </div>
+      </div>
+
+      <hr class="divider">
+
+      <!-- ───────────────────────────────────── -->
+      <!-- ── HALLAZGOS ── -->
+      <!-- ───────────────────────────────────── -->
+      <div>
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;">
+          <div style="width:3px;height:16px;background:var(--accent-purple);border-radius:2px;"></div>
+          <p class="sec-title">Hallazgos esperados e inesperados</p>
+        </div>
+        <p class="sec-sub">Resultados preliminares del análisis exploratorio · se actualizarán con datos reales</p>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px;">
+          <div>
+            <p class="slabel" style="margin-bottom:6px;">✓ Hallazgos esperados</p>
+            <div style="display:flex;flex-direction:column;gap:5px;">
+              <div class="finding-card" style="border-left-color:#0F6E56;">
+                <p style="font-size:10px;font-weight:600;color:#0F6E56;margin:0 0 3px;text-transform:uppercase;letter-spacing:0.04em;font-family:'IBM Plex Mono',monospace;">Brecha urbano-rural persistente</p>
+                <p style="font-size:11px;margin:0;color:var(--color-text-secondary);">Se confirma una diferencia significativa en acceso a internet entre cabeceras municipales y zonas rurales, aunque con tendencia a reducirse gradualmente.</p>
+              </div>
+              <div class="finding-card" style="border-left-color:#1A5FD4;">
+                <p style="font-size:10px;font-weight:600;color:#1A5FD4;margin:0 0 3px;text-transform:uppercase;letter-spacing:0.04em;font-family:'IBM Plex Mono',monospace;">Crecimiento post-COVID</p>
+                <p style="font-size:11px;margin:0;color:var(--color-text-secondary);">El salto de conectividad entre 2019 y 2022 fue más pronunciado que entre 2022 y 2023, reflejando el impulso de la pandemia.</p>
+              </div>
+            </div>
+          </div>
+          <div>
+            <p class="slabel" style="margin-bottom:6px;">⚡ Hallazgos inesperados</p>
+            <div style="display:flex;flex-direction:column;gap:5px;">
+              <div class="finding-card" style="border-left-color:#BA7517;">
+                <p style="font-size:10px;font-weight:600;color:#BA7517;margin:0 0 3px;text-transform:uppercase;letter-spacing:0.04em;font-family:'IBM Plex Mono',monospace;">Celular no compensa el internet fijo</p>
+                <p style="font-size:11px;margin:0;color:var(--color-text-secondary);">Aunque el celular tiene alta penetración rural, no sustituye el internet fijo para actividades educativas y laborales de calidad.</p>
+              </div>
+              <div class="finding-card" style="border-left-color:var(--accent-purple);">
+                <p style="font-size:10px;font-weight:600;color:var(--accent-purple);margin:0 0 3px;text-transform:uppercase;letter-spacing:0.04em;font-family:'IBM Plex Mono',monospace;">Departamentos "trampa media"</p>
+                <p style="font-size:11px;margin:0;color:var(--color-text-secondary);">Algunos departamentos con ingresos medios muestran stancamiento en acceso digital, sugiriendo barreras más allá de lo económico.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="ph" style="height:60px;"><i class="ti ti-chart-dots" style="font-size:16px;" aria-hidden="true"></i> Gráfica comparativa hallazgos esperados vs. observados · se rellena con datos reales</div>
+      </div>
+
+      <hr class="divider">
+
+      <!-- ── CONCLUSIONES ── -->
+      <div>
+        <p class="sec-title">Conclusiones</p>
+        <p class="sec-sub">Hallazgos principales · respuestas a las preguntas de investigación</p>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;">
+          <div style="padding:10px 12px;border:0.5px solid var(--color-border-tertiary);border-left:3px solid #378ADD;border-radius:var(--border-radius-md);">
+            <div style="display:flex;align-items:center;gap:6px;margin-bottom:5px;">
+              <span class="badge" style="background:#E6F1FB;color:#0C447C;">P1</span>
+              <span style="font-size:11px;font-weight:500;color:var(--color-text-primary);">Evolución del acceso</span>
+            </div>
+            <div class="ph" style="height:36px;font-size:10px;"><i class="ti ti-pencil" aria-hidden="true"></i> Narrativa con datos reales</div>
+          </div>
+          <div style="padding:10px 12px;border:0.5px solid var(--color-border-tertiary);border-left:3px solid #1D9E75;border-radius:var(--border-radius-md);">
+            <div style="display:flex;align-items:center;gap:6px;margin-bottom:5px;">
+              <span class="badge" style="background:#E1F5EE;color:#085041;">P2</span>
+              <span style="font-size:11px;font-weight:500;color:var(--color-text-primary);">Brecha urbano–rural</span>
+            </div>
+            <div class="ph" style="height:36px;font-size:10px;"><i class="ti ti-pencil" aria-hidden="true"></i> Narrativa con datos reales</div>
+          </div>
+          <div style="padding:10px 12px;border:0.5px solid var(--color-border-tertiary);border-left:3px solid #BA7517;border-radius:var(--border-radius-md);">
+            <div style="display:flex;align-items:center;gap:6px;margin-bottom:5px;">
+              <span class="badge" style="background:#FAEEDA;color:#633806;">P3</span>
+              <span style="font-size:11px;font-weight:500;color:var(--color-text-primary);">Líderes y rezagados</span>
+            </div>
+            <div class="ph" style="height:36px;font-size:10px;"><i class="ti ti-pencil" aria-hidden="true"></i> Narrativa con datos reales</div>
+          </div>
+          <div style="padding:10px 12px;border:0.5px solid var(--color-border-tertiary);border-left:3px solid #7F77DD;border-radius:var(--border-radius-md);">
+            <div style="display:flex;align-items:center;gap:6px;margin-bottom:5px;">
+              <span class="badge" style="background:#EEEDFE;color:#3C3489;">P4</span>
+              <span style="font-size:11px;font-weight:500;color:var(--color-text-primary);">Celular vs internet fijo</span>
+            </div>
+            <div class="ph" style="height:36px;font-size:10px;"><i class="ti ti-pencil" aria-hidden="true"></i> Narrativa con datos reales</div>
+          </div>
+        </div>
+      </div>
+
+      <hr class="divider">
+
+      <!-- ───────────────────────────────────── -->
+      <!-- ── INFORME FINAL ── -->
+      <!-- ───────────────────────────────────── -->
+      <div>
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;">
+          <div style="width:3px;height:16px;background:#993C1D;border-radius:2px;"></div>
+          <p class="sec-title">Informe final con recomendaciones de política pública</p>
+        </div>
+        <p class="sec-sub">Propuestas accionables dirigidas a tomadores de decisión · priorizadas por impacto y viabilidad</p>
+
+        <div style="display:flex;gap:8px;margin-bottom:10px;">
+          <div style="padding:8px 14px;background:#FFF0EC;border:0.5px solid #F0A080;border-radius:var(--border-radius-md);text-align:center;">
+            <p style="font-size:16px;font-weight:600;margin:0;color:#7A2000;">5</p>
+            <p style="font-size:10px;color:#993C1D;margin:2px 0 0;">recomendaciones</p>
+          </div>
+          <div style="padding:8px 14px;background:var(--color-background-secondary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-md);text-align:center;">
+            <p style="font-size:16px;font-weight:600;margin:0;color:var(--color-text-primary);">3</p>
+            <p style="font-size:10px;color:var(--color-text-tertiary);margin:2px 0 0;">niveles de prioridad</p>
+          </div>
+          <div style="padding:8px 14px;background:var(--color-background-secondary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-md);text-align:center;">
+            <p style="font-size:16px;font-weight:600;margin:0;color:var(--color-text-primary);">2</p>
+            <p style="font-size:10px;color:var(--color-text-tertiary);margin:2px 0 0;">horizontes temporales</p>
+          </div>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:6px;">
+          <div class="recom-card" style="border-left:3px solid #993C1D;">
+            <div style="flex-shrink:0;text-align:center;">
+              <span class="pill" style="background:#FFE8E0;color:#7A2000;">Alta</span>
+              <p style="font-size:9px;color:var(--color-text-tertiary);margin:4px 0 0;font-family:'IBM Plex Mono',monospace;">Corto plazo</p>
+            </div>
+            <div>
+              <p style="font-size:11px;font-weight:600;color:var(--color-text-primary);margin:0 0 3px;">R1 · Subsidios diferenciados de conectividad rural</p>
+              <p style="font-size:11px;color:var(--color-text-secondary);margin:0;line-height:1.55;">Ampliar el programa Conexión Total con criterios departamentales basados en el índice de brecha calculado. Focalizar en los 10 departamentos con mayor rezago identificados en el análisis.</p>
+            </div>
+          </div>
+          <div class="recom-card" style="border-left:3px solid #BA7517;">
+            <div style="flex-shrink:0;text-align:center;">
+              <span class="pill" style="background:#FFF0D0;color:#633806;">Media</span>
+              <p style="font-size:9px;color:var(--color-text-tertiary);margin:4px 0 0;font-family:'IBM Plex Mono',monospace;">Mediano plazo</p>
+            </div>
+            <div>
+              <p style="font-size:11px;font-weight:600;color:var(--color-text-primary);margin:0 0 3px;">R2 · Alfabetización digital en zonas de alta penetración móvil</p>
+              <p style="font-size:11px;color:var(--color-text-secondary);margin:0;line-height:1.55;">En departamentos donde el celular tiene alta penetración pero el internet fijo es bajo, implementar programas de uso productivo del móvil para educación y emprendimiento.</p>
+            </div>
+          </div>
+          <div class="recom-card" style="border-left:3px solid #1A5FD4;">
+            <div style="flex-shrink:0;text-align:center;">
+              <span class="pill" style="background:#E6F1FB;color:#0C447C;">Media</span>
+              <p style="font-size:9px;color:var(--color-text-tertiary);margin:4px 0 0;font-family:'IBM Plex Mono',monospace;">Mediano plazo</p>
+            </div>
+            <div>
+              <p style="font-size:11px;font-weight:600;color:var(--color-text-primary);margin:0 0 3px;">R3 · Dashboard de monitoreo permanente de la brecha digital</p>
+              <p style="font-size:11px;color:var(--color-text-secondary);margin:0;line-height:1.55;">Institucionalizar el sistema de visualización desarrollado en este proyecto como herramienta de seguimiento del MinTIC para evaluar el impacto de las intervenciones de conectividad.</p>
+            </div>
+          </div>
+          <div class="recom-card" style="border-left:3px solid #0F6E56;">
+            <div style="flex-shrink:0;text-align:center;">
+              <span class="pill" style="background:#E1F5EE;color:#085041;">Baja</span>
+              <p style="font-size:9px;color:var(--color-text-tertiary);margin:4px 0 0;font-family:'IBM Plex Mono',monospace;">Largo plazo</p>
+            </div>
+            <div>
+              <p style="font-size:11px;font-weight:600;color:var(--color-text-primary);margin:0 0 3px;">R4 · Infraestructura de fibra óptica en corredores rurales estratégicos</p>
+              <p style="font-size:11px;color:var(--color-text-secondary);margin:0;line-height:1.55;">Priorizar la inversión en infraestructura en los departamentos que muestran "trampa de brecha media": buena cobertura móvil pero ausencia de banda ancha fija.</p>
+            </div>
+          </div>
+          <div class="recom-card" style="border-left:3px solid var(--accent-purple);">
+            <div style="flex-shrink:0;text-align:center;">
+              <span class="pill" style="background:#EEEDFE;color:#3C3489;">Baja</span>
+              <p style="font-size:9px;color:var(--color-text-tertiary);margin:4px 0 0;font-family:'IBM Plex Mono',monospace;">Largo plazo</p>
+            </div>
+            <div>
+              <p style="font-size:11px;font-weight:600;color:var(--color-text-primary);margin:0 0 3px;">R5 · Integrar indicadores TIC en el índice de desarrollo territorial</p>
+              <p style="font-size:11px;color:var(--color-text-secondary);margin:0;line-height:1.55;">Proponer al DNP la inclusión de los indicadores de brecha digital calculados en este proyecto dentro del Índice de Progreso Social Municipal y el sistema de asignación de regalías.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <hr class="divider">
+
+      <!-- ───────────────────────────────────── -->
+      <!-- ── INTEGRANTES ── -->
+      <!-- ───────────────────────────────────── -->
+      <div>
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;">
+          <div style="width:3px;height:16px;background:#0F6E56;border-radius:2px;"></div>
+          <p class="sec-title">Integrantes del grupo</p>
+        </div>
+        <p class="sec-sub">Equipo de investigación · Análisis de datos · Universidad</p>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+          <!-- Integrante 1 -->
+          <div style="display:flex;gap:14px;align-items:flex-start;padding:14px;background:var(--color-background-secondary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-md);">
+            <div style="width:60px;height:60px;border-radius:50%;background:#E6F1FB;border:0.5px solid #85B7EB;display:flex;align-items:center;justify-content:center;flex-shrink:0;overflow:hidden;position:relative;">
+              <i class="ti ti-user" style="font-size:26px;color:#378ADD;" aria-hidden="true"></i>
+              <div style="position:absolute;bottom:0;right:0;width:14px;height:14px;background:var(--color-background-secondary);border:0.5px dashed var(--color-border-secondary);border-radius:50%;display:flex;align-items:center;justify-content:center;">
+                <i class="ti ti-camera" style="font-size:8px;color:var(--color-text-tertiary);"></i>
+              </div>
+            </div>
+            <div>
+              <p style="font-size:12px;font-weight:600;color:var(--color-text-primary);margin:0 0 2px;">[ Nombre Integrante 1 ]</p>
+              <p style="font-size:10px;color:var(--color-text-tertiary);margin:0 0 6px;font-family:'IBM Plex Mono',monospace;">[ Programa · Universidad ]</p>
+              <p style="font-size:11px;color:var(--color-text-secondary);margin:0 0 8px;line-height:1.5;">[ Rol en el proyecto: análisis de datos, visualizaciones, procesamiento ETL... ]</p>
+              <div style="display:flex;gap:4px;flex-wrap:wrap;">
+                <span class="tag">Python</span>
+                <span class="tag">Pandas</span>
+                <span class="tag">Plotly</span>
+              </div>
+            </div>
+          </div>
+          <!-- Integrante 2 -->
+          <div style="display:flex;gap:14px;align-items:flex-start;padding:14px;background:var(--color-background-secondary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-md);">
+            <div style="width:60px;height:60px;border-radius:50%;background:#E1F5EE;border:0.5px solid #6DCAAB;display:flex;align-items:center;justify-content:center;flex-shrink:0;overflow:hidden;position:relative;">
+              <i class="ti ti-user" style="font-size:26px;color:#1D9E75;" aria-hidden="true"></i>
+              <div style="position:absolute;bottom:0;right:0;width:14px;height:14px;background:var(--color-background-secondary);border:0.5px dashed var(--color-border-secondary);border-radius:50%;display:flex;align-items:center;justify-content:center;">
+                <i class="ti ti-camera" style="font-size:8px;color:var(--color-text-tertiary);"></i>
+              </div>
+            </div>
+            <div>
+              <p style="font-size:12px;font-weight:600;color:var(--color-text-primary);margin:0 0 2px;">[ Nombre Integrante 2 ]</p>
+              <p style="font-size:10px;color:var(--color-text-tertiary);margin:0 0 6px;font-family:'IBM Plex Mono',monospace;">[ Programa · Universidad ]</p>
+              <p style="font-size:11px;color:var(--color-text-secondary);margin:0 0 8px;line-height:1.5;">[ Rol en el proyecto: investigación, redacción del informe, política pública... ]</p>
+              <div style="display:flex;gap:4px;flex-wrap:wrap;">
+                <span class="tag">Investigación</span>
+                <span class="tag">Política pública</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div style="margin-top:10px;padding:10px 14px;background:#F5F6F8;border:0.5px dashed var(--color-border-secondary);border-radius:var(--border-radius-md);display:flex;align-items:center;gap:8px;">
+          <i class="ti ti-info-circle" style="font-size:14px;color:var(--color-text-tertiary);" aria-hidden="true"></i>
+          <p style="font-size:11px;color:var(--color-text-tertiary);margin:0;">Las fotos y nombres se agregarán en la versión final del informe. Los avatares son marcadores de posición.</p>
+        </div>
+      </div>
+
+    </div><!-- /padding -->
+  </div><!-- /main -->
+</div><!-- /app -->
+
+<!-- Tabler icons CDN -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">

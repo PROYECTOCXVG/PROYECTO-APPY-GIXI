@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang='es'>
+<head>
+  <meta charset='UTF-8' />
+  <meta name='viewport' content='width=device-width, initial-scale=1.0' />
+  <title>Comparativo de Modelos IA | Agentes e Investigación Científica</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --panel: #111827;
+      --panel-2: #1f2937;
+      --text: #e5e7eb;
+      --muted: #94a3b8;
+      --line: #334155;
+      --blue: #38bdf8;
+      --green: #34d399;
+      --amber: #fbbf24;
+      --red: #fb7185;
+      --white: #ffffff;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: radial-gradient(circle at top left, #1e293b 0, var(--bg) 42%, #020617 100%);
+      color: var(--text);
+      line-height: 1.5;
+    }
+
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 36px 24px 56px;
+    }
+
+    header {
+      display: grid;
+      grid-template-columns: 1.4fr 0.8fr;
+      gap: 24px;
+      align-items: stretch;
+      margin-bottom: 28px;
+    }
+
+    .hero, .method-box, .card, .table-wrap {
+      background: rgba(17, 24, 39, 0.82);
+      border: 1px solid rgba(148, 163, 184, 0.18);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.28);
+      backdrop-filter: blur(12px);
+      border-radius: 24px;
+    }
+
+    .hero { padding: 32px; }
+    .method-box { padding: 24px; }
+
+    .kicker {
+      color: var(--blue);
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      font-size: 0.78rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    h1 {
+      margin: 0 0 12px;
+      font-size: clamp(2rem, 4vw, 4rem);
+      line-height: 1.04;
+      letter-spacing: -0.05em;
+    }
+
+    h2 {
+      margin: 0 0 16px;
+      font-size: 1.35rem;
+      letter-spacing: -0.02em;
+    }
+
+    p { margin: 0; color: var(--muted); }
+
+    .criteria {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+      margin: 24px 0 8px;
+    }
+
+    .criterion {
+      padding: 18px;
+      border-radius: 18px;
+      background: linear-gradient(135deg, rgba(56, 189, 248, 0.12), rgba(52, 211, 153, 0.07));
+      border: 1px solid rgba(148, 163, 184, 0.16);
+    }
+
+    .criterion strong {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--white);
+      font-size: 1rem;
+    }
+
+    .method-box ul {
+      margin: 12px 0 0;
+      padding-left: 18px;
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 16px;
+      margin: 22px 0;
+    }
+
+    .card { padding: 20px; }
+
+    .metric-label {
+      color: var(--muted);
+      font-size: 0.82rem;
+      margin-bottom: 8px;
+    }
+
+    .metric-value {
+      font-size: 1.8rem;
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      color: var(--white);
+    }
+
+    .metric-note {
+      margin-top: 8px;
+      color: var(--muted);
+      font-size: 0.82rem;
+    }
+
+    .legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 18px 0 26px;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.72);
+      border: 1px solid rgba(148, 163, 184, 0.18);
+      color: var(--muted);
+      font-size: 0.84rem;
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+
+    .dot.high { background: var(--green); }
+    .dot.mid { background: var(--amber); }
+    .dot.low { background: var(--red); }
+    .dot.pending { background: var(--muted); }
+
+    .table-wrap {
+      overflow: hidden;
+      margin-top: 18px;
+    }
+
+    .table-header {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: center;
+      padding: 22px 24px;
+      border-bottom: 1px solid var(--line);
+      background: rgba(15, 23, 42, 0.68);
+    }
+
+    .table-header small {
+      color: var(--muted);
+      display: block;
+      margin-top: 4px;
+    }
+
+    .table-scroll { overflow-x: auto; }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 1120px;
+    }
+
+    th, td {
+      padding: 14px 16px;
+      border-bottom: 1px solid rgba(51, 65, 85, 0.8);
+      text-align: left;
+      vertical-align: top;
+      font-size: 0.9rem;
+    }
+
+    th {
+      color: #cbd5e1;
+      background: rgba(31, 41, 55, 0.92);
+      position: sticky;
+      top: 0;
+      z-index: 1;
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    tbody tr:hover { background: rgba(56, 189, 248, 0.055); }
+
+    .model {
+      font-weight: 800;
+      color: var(--white);
+      white-space: nowrap;
+    }
+
+    .tag {
+      display: inline-block;
+      padding: 5px 8px;
+      border-radius: 999px;
+      font-size: 0.74rem;
+      font-weight: 700;
+      margin-bottom: 6px;
+      border: 1px solid rgba(255,255,255,0.12);
+    }
+
+    .tag.high { color: #bbf7d0; background: rgba(34, 197, 94, 0.12); }
+    .tag.mid { color: #fde68a; background: rgba(245, 158, 11, 0.12); }
+    .tag.low { color: #fecdd3; background: rgba(244, 63, 94, 0.12); }
+    .tag.pending { color: #cbd5e1; background: rgba(148, 163, 184, 0.12); }
+
+    .bar {
+      height: 8px;
+      width: 100%;
+      border-radius: 999px;
+      background: rgba(148, 163, 184, 0.18);
+      margin-top: 8px;
+      overflow: hidden;
+    }
+
+    .fill {
+      height: 100%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, var(--blue), var(--green));
+    }
+
+    .notes {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-top: 20px;
+    }
+
+    .note {
+      padding: 18px;
+      background: rgba(15, 23, 42, 0.65);
+      border: 1px solid rgba(148, 163, 184, 0.16);
+      border-radius: 18px;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .footer {
+      margin-top: 28px;
+      color: var(--muted);
+      font-size: 0.82rem;
+      text-align: center;
+    }
+
+    @media (max-width: 900px) {
+      header, .criteria, .grid, .notes { grid-template-columns: 1fr; }
+      .hero { padding: 24px; }
+      .container { padding: 24px 16px 42px; }
+    }
+  </style>
+</head>
+<body>
+  <main class='container'>
+    <header>
+      <section class='hero'>
+        <div class='kicker'>Comparativo técnico normalizado · Escala 0–100</div>
+        <h1>Ranking normalizado de modelos IA para programación agentica e investigación científica</h1>
+        <p>
+          Matriz comparativa normalizada en escala 0–100 para dos criterios de uso: desarrollo con agentes para geovisores/aplicaciones web e investigación, escritura académica y textos científicos. El ranking conserva la calificación combinada ponderada: 60% programación agentica y 40% investigación científica.
+        </p>
+
+        <div class='criteria'>
+          <div class='criterion'>
+            <strong>1. Programación usando agentes</strong>
+            <p>Geovisores, aplicaciones web, generación de código, depuración, uso de herramientas, manejo de repositorios y tareas multiarchivo.</p>
+          </div>
+          <div class='criterion'>
+            <strong>2. Investigación y escritura científica</strong>
+            <p>Razonamiento, síntesis documental, redacción académica, estructura argumentativa, revisión crítica y precisión conceptual.</p>
+          </div>
+        </div>
+      </section>
+
+      <aside class='method-box'>
+        <h2>Lectura de la escala</h2>
+        <p>Escala normalizada de 0 a 100. Integra benchmarks, posicionamientos relativos y juicio técnico cuando no hay datos homogéneos.</p>
+        <p style='margin-top: 12px; color: #cbd5e1;'><strong>Calificación combinada:</strong> 0.60 × Programación agentica + 0.40 × Investigación científica.</p>
+        <ul>
+          <li>90–100: desempeño de frontera o muy alto.</li>
+          <li>80–89: desempeño sólido para producción con validación.</li>
+          <li>70–79: uso viable, con supervisión técnica.</li>
+          <li>60–69: uso limitado o dependiente del caso.</li>
+          <li>&lt;60: no recomendado para tareas críticas.</li>
+        </ul>
+      </aside>
+    </header>
+
+    <section class='grid'>
+      <div class='card'>
+        <div class='metric-label'>Modelos incluidos</div>
+        <div class='metric-value'>13</div>
+        <div class='metric-note'>Familias GLM, Kimi, MiMo, Qwen, MiniMax, DeepSeek y Claude.</div>
+      </div>
+      <div class='card'>
+        <div class='metric-label'>Criterios evaluados</div>
+        <div class='metric-value'>2</div>
+        <div class='metric-note'>Agentes de programación e investigación/escritura científica.</div>
+      </div>
+      <div class='card'>
+        <div class='metric-label'>Estado de evidencia</div>
+        <div class='metric-value'>Normalizado</div>
+        <div class='metric-note'>Combina evidencia disponible y estimación técnica documentada.</div>
+      </div>
+      <div class='card'>
+        <div class='metric-label'>Uso recomendado</div>
+        <div class='metric-value'>Piloto</div>
+        <div class='metric-note'>Evaluar con tareas reales antes de decidir adopción.</div>
+      </div>
+    </section>
+
+    <div class='legend'>
+      <span class='pill'><span class='dot high'></span>Alto</span>
+      <span class='pill'><span class='dot mid'></span>Medio</span>
+      <span class='pill'><span class='dot low'></span>Bajo</span>
+      <span class='pill'><span class='dot pending'></span>Pendiente de validación</span>
+    </div>
+
+    <section class='table-wrap'>
+      <div class='table-header'>
+        <div>
+          <h2>Matriz comparativa editable</h2>
+          <small>Ordenado de mayor a menor según calificación combinada normalizada. Fórmula: 60% programación agentica + 40% investigación científica.</small>
+        </div>
+      </div>
+      <div class='table-scroll'>
+        <table>
+          <thead>
+            <tr>
+              <th>Modelo</th>
+              <th>Programación agentica<br><span style='color:#94a3b8; font-weight:500;'>0–100</span></th>
+              <th>Investigación científica<br><span style='color:#94a3b8; font-weight:500;'>0–100</span></th>
+              <th>Calificación combinada<br><span style='color:#94a3b8; font-weight:500;'>60/40</span></th>
+              <th>Uso sugerido</th>
+              <th>Riesgo técnico</th>
+              <th>Observación</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class='model'>Claude Sonnet 4.6</td>
+              <td><span class='tag high'>98</span><div class='bar'><div class='fill' style='width: 98%'></div></div></td>
+              <td><span class='tag high'>96</span><div class='bar'><div class='fill' style='width: 96%'></div></div></td>
+              <td><span class='tag high'>97.2</span><div class='bar'><div class='fill' style='width: 97.2%'></div></div></td>
+              <td>Referencia de frontera para agentes multiarchivo, ingeniería de software compleja, documentación técnica y redacción científica.</td>
+              <td>Costo y disponibilidad pueden limitar uso extensivo en flujos automatizados.</td>
+              <td>Modelo de referencia para contrastar calidad, consistencia y razonamiento estructurado.</td>
+            </tr>
+            <tr>
+              <td class='model'>Kimi K2.6</td>
+              <td><span class='tag high'>96</span><div class='bar'><div class='fill' style='width: 96%'></div></div></td>
+              <td><span class='tag high'>95</span><div class='bar'><div class='fill' style='width: 95%'></div></div></td>
+              <td><span class='tag high'>95.6</span><div class='bar'><div class='fill' style='width: 95.6%'></div></div></td>
+              <td>Agentes de larga duración, revisión documental, programación multiarchivo y análisis de contexto amplio.</td>
+              <td>Requiere validación con repositorios geoespaciales reales y documentos científicos extensos.</td>
+              <td>Candidato principal para piloto integral orientado a desarrollo e investigación.</td>
+            </tr>
+            <tr>
+              <td class='model'>DeepSeek V4 Pro</td>
+              <td><span class='tag high'>95</span><div class='bar'><div class='fill' style='width: 95%'></div></div></td>
+              <td><span class='tag high'>95</span><div class='bar'><div class='fill' style='width: 95%'></div></div></td>
+              <td><span class='tag high'>95.0</span><div class='bar'><div class='fill' style='width: 95%'></div></div></td>
+              <td>Razonamiento complejo, depuración lógica, análisis metodológico y escritura científica estructurada.</td>
+              <td>Puede ser menos ágil que variantes flash en iteraciones rápidas.</td>
+              <td>Sube en el ranking por balance entre razonamiento, programación e investigación.</td>
+            </tr>
+            <tr>
+              <td class='model'>Qwen3.6 Plus</td>
+              <td><span class='tag high'>94</span><div class='bar'><div class='fill' style='width: 94%'></div></div></td>
+              <td><span class='tag high'>94</span><div class='bar'><div class='fill' style='width: 94%'></div></div></td>
+              <td><span class='tag high'>94.0</span><div class='bar'><div class='fill' style='width: 94%'></div></div></td>
+              <td>Contexto amplio, análisis documental largo, repositorios grandes y tareas con mucha memoria contextual.</td>
+              <td>Validar latencia, costo y consistencia en sesiones prolongadas.</td>
+              <td>Muy fuerte cuando el tamaño de contexto es un criterio decisivo.</td>
+            </tr>
+            <tr>
+              <td class='model'>GLM-5.1</td>
+              <td><span class='tag high'>94</span><div class='bar'><div class='fill' style='width: 94%'></div></div></td>
+              <td><span class='tag high'>91</span><div class='bar'><div class='fill' style='width: 91%'></div></div></td>
+              <td><span class='tag high'>92.8</span><div class='bar'><div class='fill' style='width: 92.8%'></div></div></td>
+              <td>Frontend, agentes de código, aplicaciones web, geovisores y refactorización asistida.</td>
+              <td>Validar estabilidad con muchas herramientas encadenadas y flujos prolongados.</td>
+              <td>Muy competitivo para programación agentica y desarrollo web.</td>
+            </tr>
+            <tr>
+              <td class='model'>MiniMax M2.7</td>
+              <td><span class='tag high'>91</span><div class='bar'><div class='fill' style='width: 91%'></div></div></td>
+              <td><span class='tag high'>88</span><div class='bar'><div class='fill' style='width: 88%'></div></div></td>
+              <td><span class='tag high'>89.8</span><div class='bar'><div class='fill' style='width: 89.8%'></div></div></td>
+              <td>Automatización, programación agentica y prototipado técnico con buena relación costo/desempeño.</td>
+              <td>Validar precisión en cambios multiarchivo, pruebas unitarias y documentación de decisiones.</td>
+              <td>Mejora significativa frente a M2.5 y queda cerca del grupo superior.</td>
+            </tr>
+            <tr>
+              <td class='model'>MiMo-V2.5-Pro</td>
+              <td><span class='tag high'>90</span><div class='bar'><div class='fill' style='width: 90%'></div></div></td>
+              <td><span class='tag high'>86</span><div class='bar'><div class='fill' style='width: 86%'></div></div></td>
+              <td><span class='tag high'>88.4</span><div class='bar'><div class='fill' style='width: 88.4%'></div></div></td>
+              <td>Agentes orientados a acción, tool use, codificación asistida y tareas autónomas.</td>
+              <td>Menor evidencia homogénea para escritura científica y síntesis académica.</td>
+              <td>Fuerte en programación; se ajusta a la baja en investigación frente a modelos más equilibrados.</td>
+            </tr>
+            <tr>
+              <td class='model'>Kimi K2.5</td>
+              <td><span class='tag high'>86</span><div class='bar'><div class='fill' style='width: 86%'></div></div></td>
+              <td><span class='tag high'>88</span><div class='bar'><div class='fill' style='width: 88%'></div></div></td>
+              <td><span class='tag high'>86.8</span><div class='bar'><div class='fill' style='width: 86.8%'></div></div></td>
+              <td>Lectura extensa, síntesis, escritura técnica y análisis documental.</td>
+              <td>Validar trazabilidad de fuentes y precisión factual.</td>
+              <td>Más fuerte en investigación y contexto que en agentes de programación complejos.</td>
+            </tr>
+            <tr>
+              <td class='model'>Qwen3.5 Plus</td>
+              <td><span class='tag high'>85</span><div class='bar'><div class='fill' style='width: 85%'></div></div></td>
+              <td><span class='tag high'>88</span><div class='bar'><div class='fill' style='width: 88%'></div></div></td>
+              <td><span class='tag high'>86.2</span><div class='bar'><div class='fill' style='width: 86.2%'></div></div></td>
+              <td>Escritura técnica, contexto amplio, análisis académico y tareas generales.</td>
+              <td>Revisar diferencias entre versión Plus, API y variantes abiertas.</td>
+              <td>Buen candidato para revisión de literatura y textos largos.</td>
+            </tr>
+            <tr>
+              <td class='model'>GLM-5</td>
+              <td><span class='tag high'>84</span><div class='bar'><div class='fill' style='width: 84%'></div></div></td>
+              <td><span class='tag high'>83</span><div class='bar'><div class='fill' style='width: 83%'></div></div></td>
+              <td><span class='tag high'>83.6</span><div class='bar'><div class='fill' style='width: 83.6%'></div></div></td>
+              <td>Programación general, análisis técnico y escritura estructurada.</td>
+              <td>Puede quedar por debajo de versiones más recientes en agentes largos.</td>
+              <td>Funciona como línea base sólida frente a GLM-5.1.</td>
+            </tr>
+            <tr>
+              <td class='model'>DeepSeek V4 Flash</td>
+              <td><span class='tag mid'>78</span><div class='bar'><div class='fill' style='width: 78%'></div></div></td>
+              <td><span class='tag mid'>76</span><div class='bar'><div class='fill' style='width: 76%'></div></div></td>
+              <td><span class='tag mid'>77.2</span><div class='bar'><div class='fill' style='width: 77.2%'></div></div></td>
+              <td>Iteraciones rápidas, prototipos, borradores técnicos y tareas de baja latencia.</td>
+              <td>No usar como único modelo para artículos científicos o decisiones técnicas críticas.</td>
+              <td>Modelo auxiliar útil para velocidad, no para revisión final.</td>
+            </tr>
+            <tr>
+              <td class='model'>MiniMax M2.5</td>
+              <td><span class='tag mid'>76</span><div class='bar'><div class='fill' style='width: 76%'></div></div></td>
+              <td><span class='tag mid'>72</span><div class='bar'><div class='fill' style='width: 72%'></div></div></td>
+              <td><span class='tag mid'>74.4</span><div class='bar'><div class='fill' style='width: 74.4%'></div></div></td>
+              <td>Programación costo-eficiente y prototipado rápido.</td>
+              <td>Requiere supervisión en escritura científica compleja y cambios multiarchivo.</td>
+              <td>Queda por debajo de M2.7 tras normalización.</td>
+            </tr>
+            <tr>
+              <td class='model'>MiMo-V2.5</td>
+              <td><span class='tag low'>62</span><div class='bar'><div class='fill' style='width: 62%'></div></div></td>
+              <td><span class='tag low'>60</span><div class='bar'><div class='fill' style='width: 60%'></div></div></td>
+              <td><span class='tag low'>61.2</span><div class='bar'><div class='fill' style='width: 61.2%'></div></div></td>
+              <td>Pruebas exploratorias, tareas acotadas y comparación costo/desempeño.</td>
+              <td>No asumir equivalencia con la versión Pro.</td>
+              <td>Útil solo como línea base o modelo secundario.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class='notes'>
+      <div class='note'>
+        <strong>Normalización aplicada:</strong><br />
+        Programación agentica integra desempeño en coding, uso de herramientas, estabilidad en tareas multiarchivo y evidencia tipo SWE-Bench/Arena cuando está disponible. Investigación científica integra razonamiento, síntesis, escritura académica, trazabilidad y capacidad de contexto.
+      </div>
+      <div class='note'>
+        <strong>Advertencia metodológica:</strong><br />
+        Los valores son comparables dentro de esta matriz, pero no equivalen a resultados oficiales únicos. Donde no hay benchmark homogéneo, se usó estimación técnica conservadora para evitar sobreinterpretación.
+      </div>
+    </section>
+
+    <p class='footer'>
+      Documento HTML editable · Versión normalizada. Actualizar la matriz cuando existan resultados internos o benchmarks verificables y comparables entre versiones.
+    </p>
+  </main>
+</body>
+</html>
