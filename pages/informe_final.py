@@ -12,7 +12,7 @@ df_filtrado = aplicar_filtros(df)
 
 # --- Ruta del PDF ---
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-ruta_pdf = os.path.join(BASE_DIR, "img", "informefinal.pdf")
+ruta_pdf = os.path.join(BASE_DIR, "img", "Informefinal.pdf")
 
 # --- Leer y convertir PDF a base64 ---
 with open(ruta_pdf, "rb") as f:
