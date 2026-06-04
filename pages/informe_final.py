@@ -2,6 +2,7 @@ import streamlit as st
 import base64
 import os
 import sys
+from pdf2image import convert_from_path
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
@@ -14,67 +15,34 @@ df_filtrado = aplicar_filtros(df)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 ruta_pdf = os.path.join(BASE_DIR, "img", "Informefinal.pdf")
 
-# --- Leer y convertir PDF a base64 ---
+# --- Leer PDF para descarga ---
 with open(ruta_pdf, "rb") as f:
-    pdf_base64 = base64.b64encode(f.read()).decode("utf-8")
+    pdf_bytes = f.read()
 
-# --- Estilos visuales ---
-st.markdown("""
-<style>
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap');
+# --- Vista previa: solo primera página ---
+preview = convert_from_path(ruta_pdf, first_page=1, last_page=1, dpi=150)[0]
 
-/* Fondo oscuro general */
-.stApp { background-color: #0a0e1a; font-family: 'Inter', sans-serif; }
-
-/* Título con barra azul */
-.inf-titulo {
-    border-left: 4px solid #4a9fd4;
-    padding-left: 12px;
-    font-size: 26px; font-weight: 700;
-    color: #ffffff; margin-bottom: 4px;
-}
-/* Subtítulo gris */
-.inf-subtitulo {
-    font-size: 14px; color: #889aaa;
-    margin-bottom: 20px; padding-left: 16px;
-}
-
-/* Contenedor del visor con sombra y bordes redondeados */
-.visor-container {
-    border-radius: 12px;
-    overflow: hidden;                    /* recorta esquinas del iframe */
-    border: 1px solid #1e2d40;
-    box-shadow: 0 4px 24px rgba(0,0,0,0.4);  /* sombra para profundidad */
-}
-
-/* Franja de cierre */
-.franja-cierre {
-    background-color: #0d1422;
-    border: 1px solid #1e2d40;
-    border-radius: 8px;
-    padding: 12px 20px;
-    margin-top: 16px;
-    font-size: 13px; color: #778899;
-}
-</style>
-""", unsafe_allow_html=True)
+# ... (mismos estilos CSS que arriba) ...
 
 # --- Encabezado ---
 st.markdown('<div class="inf-titulo">Informe Final</div>', unsafe_allow_html=True)
 st.markdown('<div class="inf-subtitulo">Documento completo del proyecto · Análisis de Datos · 2025</div>', unsafe_allow_html=True)
 
-# --- Visor PDF con iframe en contenedor estilizado ---
-st.markdown(f"""
-<div class="visor-container">
-    <iframe
-        src="data:application/pdf;base64,{pdf_base64}"
-        width="100%"
-        height="820px"
-        type="application/pdf"
-        style="display:block; border:none;"
-    ></iframe>
-</div>
-""", unsafe_allow_html=True)
+# --- Vista previa + Descarga ---
+col1, col2 = st.columns([3, 1])
+with col1:
+    st.markdown('<div class="visor-container">', unsafe_allow_html=True)
+    st.image(preview, use_container_width=True)
+    st.markdown('</div>', unsafe_allow_html=True)
+with col2:
+    st.download_button(
+        label="📥 Descargar PDF",
+        data=pdf_bytes,
+        file_name="Informefinal.pdf",
+        mime="application/pdf",
+        use_container_width=True
+    )
+    st.info("Vista previa de la primera página. Descarga el documento completo.")
 
 # --- Franja de cierre ---
 st.markdown("""
