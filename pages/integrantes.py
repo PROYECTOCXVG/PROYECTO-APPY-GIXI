@@ -21,7 +21,7 @@ def img_a_base64(ruta):
 
 # --- Rutas de imágenes ---
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-ruta_claudia = os.path.join(BASE_DIR, "img", "claudia.png")
+ruta_claudia = os.path.join(BASE_DIR, "img", "Claudia.png")
 ruta_ingrid  = os.path.join(BASE_DIR, "img", "Ingrid.png")
 
 # --- Convertir fotos a base64 ---
